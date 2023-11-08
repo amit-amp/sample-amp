@@ -1,4 +1,5 @@
-import { Module } from "@nestjs/common";
+import { Module, Scope } from "@nestjs/common";
+import { APP_INTERCEPTOR } from "@nestjs/core";
 import { UserModule } from "./user/user.module";
 import { OrderModule } from "./order/order.module";
 import { CustomerModule } from "./customer/customer.module";
@@ -35,7 +36,7 @@ import { AuthModule } from "./auth/auth.module";
     }),
     GraphQLModule.forRootAsync<ApolloDriverConfig>({
       driver: ApolloDriver,
-      useFactory: (configService: ConfigService) => {
+      useFactory: (configService) => {
         const playground = configService.get("GRAPHQL_PLAYGROUND");
         const introspection = configService.get("GRAPHQL_INTROSPECTION");
         return {
